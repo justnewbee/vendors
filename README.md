@@ -24,6 +24,7 @@ there're 4-2 spaces for a tab in some open source.
 
 - moment.js
 - knockout.js
+- less.js
 
 ### `<space>{2}` open sources
 

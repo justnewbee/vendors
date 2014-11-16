@@ -2483,7 +2483,7 @@ if ( !jQuery.support.changeBubbles ) {
 		return val;
 	},
 	
-	testChange = function testChange( e ) {
+	testChange = function( e ) {
 		var elem = e.target, data, val;
 		
 		if ( !rformElems.test( elem.nodeName ) || elem.readOnly ) {

@@ -1449,7 +1449,7 @@ function bootstrap(element, modules, config) {
 		
 		modules.unshift('ng');
 		var injector = createInjector(modules, config.strictDi);
-		injector.invoke(['$rootScope', '$rootElement', '$compile', '$injector', function bootstrapApply(scope, element, compile, injector) {
+		injector.invoke(['$rootScope', '$rootElement', '$compile', '$injector', function(scope, element, compile, injector) {
 			scope.$apply(function() {
 				element.data('$injector', injector);
 				compile(element)(scope);
@@ -2964,7 +2964,7 @@ function createEventHandler(element, events) {
 forEach({
 	removeData: jqLiteRemoveData,
 	
-	on: function(element, type, fn, unsupported) {
+	on: function jqLiteOn(element, type, fn, unsupported) {
 		if (isDefined(unsupported)) {
 			throw jqLiteMinErr('onargs', 'jqLite#on() does not support the `selector` or `eventData` parameters');
 		}

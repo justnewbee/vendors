@@ -1000,10 +1000,13 @@ function reject(reason) {
 			}
 			return rejected ? rejected(reason) : this;
 		}
-	}, function fallback() {
+	}, function() {
 		return this;
-	}, function inspect() {
-		return { state: "rejected", reason: reason };
+	}, function() {
+		return {
+			state: "rejected",
+			reason: reason
+		};
 	});
 	
 	// Note that the reason has not been handled.

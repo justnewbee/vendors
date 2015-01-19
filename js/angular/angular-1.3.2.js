@@ -46,9 +46,11 @@ function minErr(module, ErrorConstructor) {
 			stringify = function(obj) {
 				if (typeof obj === 'function') {
 					return obj.toString().replace(/ \{[\s\S]*$/, '');
-				} else if (typeof obj === 'undefined') {
+				}
+				if (typeof obj === 'undefined') {
 					return 'undefined';
-				} else if (typeof obj !== 'string') {
+				}
+				if (typeof obj !== 'string') {
 					return JSON.stringify(obj);
 				}
 				return obj;
@@ -62,9 +64,11 @@ function minErr(module, ErrorConstructor) {
 				arg = templateArgs[index + 2];
 				if (typeof arg === 'function') {
 					return arg.toString().replace(/ ?\{[\s\S]*$/, '');
-				} else if (typeof arg === 'undefined') {
+				}
+				if (typeof arg === 'undefined') {
 					return 'undefined';
-				} else if (typeof arg !== 'string') {
+				}
+				if (typeof arg !== 'string') {
 					return toJson(arg);
 				}
 				return arg;
@@ -203,7 +207,9 @@ var VALIDITY_STATE_PROPERTY = 'validity';
  * @param {string} string String to be converted to lowercase.
  * @returns {string} Lowercased string.
  */
-var lowercase = function(string) {return isString(string) ? string.toLowerCase() : string;};
+var lowercase = function(string) {
+	return isString(string) ? string.toLowerCase() : string;
+};
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
 /**
@@ -216,15 +222,21 @@ var hasOwnProperty = Object.prototype.hasOwnProperty;
  * @param {string} string String to be converted to uppercase.
  * @returns {string} Uppercased string.
  */
-var uppercase = function(string) {return isString(string) ? string.toUpperCase() : string;};
+var uppercase = function(string) {
+	return isString(string) ? string.toUpperCase() : string;
+};
 
 var manualLowercase = function(s) {
 	/* jshint bitwise: false */
-	return isString(s) ? s.replace(/[A-Z]/g, function(ch) {return String.fromCharCode(ch.charCodeAt(0) | 32);}) : s;
+	return isString(s) ? s.replace(/[A-Z]/g, function(ch) {
+		return String.fromCharCode(ch.charCodeAt(0) | 32);
+	}) : s;
 };
 var manualUppercase = function(s) {
 	/* jshint bitwise: false */
-	return isString(s) ? s.replace(/[a-z]/g, function(ch) {return String.fromCharCode(ch.charCodeAt(0) & ~32);}) : s;
+	return isString(s) ? s.replace(/[a-z]/g, function(ch) {
+		return String.fromCharCode(ch.charCodeAt(0) & ~32);
+	}) : s;
 };
 
 // String#toLowerCase and String#toUpperCase don't produce correct results in browsers with Turkish
@@ -259,8 +271,7 @@ msie = document.documentMode;
 /**
  * @private
  * @param {*} obj
- * @return {boolean} Returns true if `obj` is an array or array-like object (NodeList, Arguments,
- *                   String ...)
+ * @return {boolean} Returns true if `obj` is an array or array-like object (NodeList, Arguments, String ...)
  */
 function isArrayLike(obj) {
 	if (obj == null || isWindow(obj)) {
@@ -360,7 +371,9 @@ function forEachSorted(obj, iterator, context) {
  * @returns {function(*, string)}
  */
 function reverseParams(iteratorFn) {
-	return function(value, key) { iteratorFn(key, value); };
+	return function(value, key) {
+		iteratorFn(key, value);
+	};
 }
 
 /**
@@ -429,7 +442,9 @@ function int(str) {
 }
 
 function inherit(parent, extra) {
-	return extend(new (extend(function() {}, {prototype:parent}))(), extra);
+	return extend(new (extend(function() {}, {
+		prototype: parent
+	}))(), extra);
 }
 
 /**
@@ -467,10 +482,16 @@ noop.$inject = [];
 		 };
 	 ```
  */
-function identity($) {return $;}
+function identity($) {
+	return $;
+}
 identity.$inject = [];
 
-function valueFn(value) {return function() {return value;};}
+function valueFn(value) {
+	return function() {
+		return value;
+	};
+}
 
 /**
  * @ngdoc function
@@ -484,7 +505,9 @@ function valueFn(value) {return function() {return value;};}
  * @param {*} value Reference to check.
  * @returns {boolean} True if `value` is undefined.
  */
-function isUndefined(value) {return typeof value === 'undefined';}
+function isUndefined(value) {
+	return typeof value === 'undefined';
+}
 
 /**
  * @ngdoc function
@@ -498,7 +521,9 @@ function isUndefined(value) {return typeof value === 'undefined';}
  * @param {*} value Reference to check.
  * @returns {boolean} True if `value` is defined.
  */
-function isDefined(value) {return typeof value !== 'undefined';}
+function isDefined(value) {
+	return typeof value !== 'undefined';
+}
 
 /**
  * @ngdoc function
@@ -530,7 +555,9 @@ function isObject(value) {
  * @param {*} value Reference to check.
  * @returns {boolean} True if `value` is a `String`.
  */
-function isString(value) {return typeof value === 'string';}
+function isString(value) {
+	return typeof value === 'string';
+}
 
 /**
  * @ngdoc function
@@ -588,7 +615,9 @@ var isArray = Array.isArray;
  * @param {*} value Reference to check.
  * @returns {boolean} True if `value` is a `Function`.
  */
-function isFunction(value) {return typeof value === 'function';}
+function isFunction(value) {
+	return typeof value === 'function';
+}
 
 /**
  * Determines if a value is a regular expression object.
@@ -656,9 +685,7 @@ var escapeForRegexp = function(s) {
  * @returns {boolean} True if `value` is a DOM element (or wrapped jQuery element).
  */
 function isElement(node) {
-	return !!(node &&
-		(node.nodeName  // we are a direct element
-		|| (node.prop && node.attr && node.find)));  // we have an on and find method part of jQuery API
+	return !!(node && (node.nodeName || (node.prop && node.attr && node.find)));// we are a direct element OR we have an on and find method part of jQuery API
 }
 
 /**
@@ -667,8 +694,9 @@ function isElement(node) {
  */
 function makeMap(str) {
 	var obj = {}, items = str.split(","), i;
-	for (i = 0; i < items.length; i++)
+	for (i = 0; i < items.length; i++) {
 		obj[ items[i] ] = true;
+	}
 	return obj;
 }
 
@@ -765,15 +793,18 @@ function copy(source, destination, stackSource, stackDest) {
 			}
 		}
 	} else {
-		if (source === destination) throw ngMinErr('cpi',
-			"Can't copy! Source and destination are identical.");
+		if (source === destination) {
+			throw ngMinErr('cpi', "Can't copy! Source and destination are identical.");
+		}
 		
 		stackSource = stackSource || [];
 		stackDest = stackDest || [];
 		
 		if (isObject(source)) {
 			var index = stackSource.indexOf(source);
-			if (index !== -1) return stackDest[index];
+			if (index !== -1) {
+				return stackDest[index];
+			}
 			
 			stackSource.push(source);
 			stackDest.push(destination);
@@ -1019,7 +1050,9 @@ function toJsonReplacer(key, value) {
  * @returns {string|undefined} JSON-ified string representing `obj`.
  */
 function toJson(obj, pretty) {
-	if (typeof obj === 'undefined') return undefined;
+	if (typeof obj === 'undefined') {
+		return undefined;
+	}
 	return JSON.stringify(obj, toJsonReplacer, pretty ? '  ' : null);
 }
 
@@ -1214,36 +1247,35 @@ function getNgAttribute(element, ngAttr) {
  *
  <example ng-app-included="true">
 	 <file name="index.html">
-	 <div ng-app="ngAppStrictDemo" ng-strict-di>
+		 <div ng-app="ngAppStrictDemo" ng-strict-di>
 			 <div ng-controller="GoodController1">
-					 I can add: {{a}} + {{b}} =  {{ a+b }}
-
-					 <p>This renders because the controller does not fail to
-							instantiate, by using explicit annotation style (see
-							script.js for details)
-					 </p>
+				 I can add: {{a}} + {{b}} =  {{ a+b }}
+				 <p>This renders because the controller does not fail to
+						instantiate, by using explicit annotation style (see
+						script.js for details)
+				 </p>
 			 </div>
 
 			 <div ng-controller="GoodController2">
-					 Name: <input ng-model="name"><br />
-					 Hello, {{name}}!
+				 Name: <input ng-model="name"><br />
+				 Hello, {{name}}!
 
-					 <p>This renders because the controller does not fail to
-							instantiate, by using explicit annotation style
-							(see script.js for details)
-					 </p>
+				 <p>This renders because the controller does not fail to
+					instantiate, by using explicit annotation style
+					(see script.js for details)
+				 </p>
 			 </div>
 
 			 <div ng-controller="BadController">
-					 I can add: {{a}} + {{b}} =  {{ a+b }}
+				 I can add: {{a}} + {{b}} =  {{ a+b }}
 
-					 <p>The controller could not be instantiated, due to relying
-							on automatic function annotations (which are disabled in
-							strict mode). As such, the content of this section is not
-							interpolated, and there should be an error in your web console.
-					 </p>
+				 <p>The controller could not be instantiated, due to relying
+					on automatic function annotations (which are disabled in
+					strict mode). As such, the content of this section is not
+					interpolated, and there should be an error in your web console.
+				 </p>
 			 </div>
-	 </div>
+		 </div>
 	 </file>
 	 <file name="script.js">
 	 // BadController will fail to instantiate, due to relying on automatic function annotation,
@@ -1299,8 +1331,8 @@ function angularInit(element, bootstrap) {
 		}
 	});
 	forEach(ngAttrPrefixes, function(prefix) {
-		var name = prefix + 'app';
-		var candidate;
+		var name = prefix + 'app',
+			candidate;
 		
 		if (!appElement && (candidate = element.querySelector('[' + name.replace(':', '\\:') + ']'))) {
 			appElement = candidate;
@@ -1364,7 +1396,9 @@ function angularInit(element, bootstrap) {
  * @returns {auto.$injector} Returns the newly created injector for this app.
  */
 function bootstrap(element, modules, config) {
-	if (!isObject(config)) config = {};
+	if (!isObject(config)) {
+		config = {};
+	}
 	var defaultConfig = {
 		strictDi: false
 	};
@@ -1549,11 +1583,14 @@ function assertNotHasOwnProperty(name, context) {
  */
 //TODO(misko): this function needs to be removed
 function getter(obj, path, bindFnToScope) {
-	if (!path) return obj;
-	var keys = path.split('.');
-	var key;
-	var lastInstance = obj;
-	var len = keys.length;
+	if (!path) {
+		return obj;
+	}
+	
+	var keys = path.split('.'),
+		lastInstance = obj,
+		len = keys.length,
+		key;
 	
 	for (var i = 0; i < len; i++) {
 		key = keys[i];
@@ -1573,11 +1610,10 @@ function getter(obj, path, bindFnToScope) {
  * @returns {jqLite} jqLite collection containing the nodes
  */
 function getBlockNodes(nodes) {
-	// TODO(perf): just check if all items in `nodes` are siblings and if they are return the original
-	//             collection, otherwise update the original collection.
-	var node = nodes[0];
-	var endNode = nodes[nodes.length - 1];
-	var blockNodes = [node];
+	// TODO(perf): just check if all items in `nodes` are siblings and if they are return the original collection, otherwise update the original collection.
+	var node = nodes[0],
+		endNode = nodes[nodes.length - 1],
+		blockNodes = [node];
 	
 	do {
 		node = node.nextSibling;
@@ -1603,11 +1639,11 @@ function createMap() {
 	return Object.create(null);
 }
 
-var NODE_TYPE_ELEMENT = 1;
-var NODE_TYPE_TEXT = 3;
-var NODE_TYPE_COMMENT = 8;
-var NODE_TYPE_DOCUMENT = 9;
-var NODE_TYPE_DOCUMENT_FRAGMENT = 11;
+var NODE_TYPE_ELEMENT = 1,
+	NODE_TYPE_TEXT = 3,
+	NODE_TYPE_COMMENT = 8,
+	NODE_TYPE_DOCUMENT = 9,
+	NODE_TYPE_DOCUMENT_FRAGMENT = 11;
 
 /**
  * @ngdoc type
@@ -1648,7 +1684,6 @@ function setupModuleLoader(window) {
 		 *
 		 * When passed two or more arguments, a new module is created.  If passed only one argument, an
 		 * existing module (the name passed as the first argument to `module`) is retrieved.
-		 *
 		 *
 		 * # Module
 		 *

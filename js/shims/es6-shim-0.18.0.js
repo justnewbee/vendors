@@ -67,7 +67,9 @@
 			ArrayIterator; // make our implementation private
 		
 		var defineProperty = function(object, name, value, force) {
-			if (!force && name in object) return;
+			if (!force && name in object) {
+				return;
+			}
 			if (supportsDescriptors) {
 				Object.defineProperty(object, name, {
 					configurable: true,
@@ -220,7 +222,9 @@
 			SameValue: function(a, b) {
 				if (a === b) {
 					// 0 === -0, but they are not identical.
-					if (a === 0) return 1 / a === 1 / b;
+					if (a === 0) {
+						return 1 / a === 1 / b;
+					}
 					return true;
 				}
 				return Number.isNaN(a) && Number.isNaN(b);
@@ -264,7 +268,9 @@
 				}
 				// Mark that we've used the es6 construct path
 				// (see emulateES6construct)
-				defineProperties(obj, { _es6construct: true });
+				defineProperties(obj, {
+					_es6construct: true
+				});
 				// Call the constructor.
 				var result = C.apply(obj, args);
 				return ES.TypeIsObject(result) ? result : obj;

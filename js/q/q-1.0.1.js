@@ -242,28 +242,24 @@ var array_reduce = uncurryThis(
 	}
 );
 
-var array_indexOf = uncurryThis(
-	Array.prototype.indexOf || function(value) {
-		// not a very good shim, but good enough for our one use of it
-		for (var i = 0; i < this.length; i++) {
-			if (this[i] === value) {
-				return i;
-			}
+var array_indexOf = uncurryThis(Array.prototype.indexOf || function(value) {
+	// not a very good shim, but good enough for our one use of it
+	for (var i = 0; i < this.length; i++) {
+		if (this[i] === value) {
+			return i;
 		}
-		return -1;
 	}
-);
+	return -1;
+});
 
-var array_map = uncurryThis(
-	Array.prototype.map || function(callback, thisp) {
-		var self = this;
-		var collect = [];
-		array_reduce(self, function(undefined, value, index) {
-			collect.push(callback.call(thisp, value, index, self));
-		}, void 0);
-		return collect;
-	}
-);
+var array_map = uncurryThis(Array.prototype.map || function(callback, thisp) {
+	var self = this;
+	var collect = [];
+	array_reduce(self, function(undefined, value, index) {
+		collect.push(callback.call(thisp, value, index, self));
+	}, void 0);
+	return collect;
+});
 
 var object_create = Object.create || function(prototype) {
 	function Type() {}

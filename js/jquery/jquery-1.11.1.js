@@ -5199,16 +5199,14 @@ jQuery.extend({
 			safe.removeChild(tmp);
 		}
 		
-		// Reset defaultChecked for any radios and checkboxes
-		// about to be appended to the DOM in IE 6/7 (#8060)
+		// Reset defaultChecked for any radios and checkboxes about to be appended to the DOM in IE 6/7 (#8060)
 		if (!support.appendChecked) {
 			jQuery.grep(getAll(nodes, "input"), fixDefaultChecked);
 		}
 		
 		i = 0;
 		while ((elem = nodes[i++])) {
-			// #4087 - If origin and destination elements are the same, and this is
-			// that element, do not do anything
+			// #4087 - If origin and destination elements are the same, and this is that element, do not do anything
 			if (selection && jQuery.inArray(elem, selection) !== -1) {
 				continue;
 			}

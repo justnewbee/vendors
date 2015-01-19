@@ -21,7 +21,6 @@
  * Authors        Faruk Ates, Paul Irish, Alex Sexton
  * Contributors   Ryan Seddon, Ben Alman
  */
-
 window.Modernizr = (function(window, document, undefined) {
 	var version = '2.6.1',
 		Modernizr = {},
@@ -204,7 +203,7 @@ window.Modernizr = (function(window, document, undefined) {
 		Function.prototype.bind = function(that) {
 			var target = this;
 			
-			if (typeof target != 'function') {
+			if (typeof target !== 'function') {
 				throw new TypeError();
 			}
 			

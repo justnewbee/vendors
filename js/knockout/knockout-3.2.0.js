@@ -36,8 +36,9 @@ ko.exportSymbol = function(koPath, object) {
 	// At that point, "target" would be set to: (typeof koExports !== "undefined" ? koExports : ko)
 	var target = ko;
 	
-	for (var i = 0; i < tokens.length - 1; i++)
+	for (var i = 0; i < tokens.length - 1; i++) {
 		target = target[tokens[i]];
+	}
 	target[tokens[tokens.length - 1]] = object;
 };
 ko.exportProperty = function(owner, publicName, object) {
@@ -105,8 +106,12 @@ ko.utils = (function() {
 		isIe7 = ieVersion === 7;
 	
 	function isClickOnCheckableElement(element, eventType) {
-		if ((ko.utils.tagNameLower(element) !== "input") || !element.type) return false;
-		if (eventType.toLowerCase() != "click") return false;
+		if ((ko.utils.tagNameLower(element) !== "input") || !element.type) {
+			return false;
+		}
+		if (eventType.toLowerCase() != "click") {
+			return false;
+		}
 		var inputType = element.type;
 		return (inputType == "checkbox") || (inputType == "radio");
 	}
